@@ -13,5 +13,17 @@
     </head>
     <body>
         <h1>Your Typed Username: <%= session.getAttribute("username") %> </h1>
+        
+        <%
+            String isLogout = request.getParameter("logout");
+            if( isLogout != null ){
+                session.invalidate();
+                response.sendRedirect("index.jsp");
+            }
+        %>
+        
+        <form action="dashboard.jsp" method="post" >
+            <input type="submit" name="logout" value="Logout" />
+        </form>
     </body>
 </html>
