@@ -39,6 +39,32 @@ public class SampleController {
 		return mav;
 	}
 	
+	/*
+	 * to pass all the parameters to the method's single map we have config spring-dispatcher-servlet.xml file
+	 * with following code
+	 * in beans tag:-> xmlns:mvc="http://www.springframework.org/schema/mvc"
+	 * in xsi:schemaLocation attr:-> http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+	 * and finally put the following line in top of viewResolver tag
+	 * <mvc:annotation-driven />
+	 * */
+	
+	@RequestMapping("/Map/{userName}/{msg}")
+	public ModelAndView Map(@PathVariable Map<String, String> pathVar){
+		ModelAndView mav = new ModelAndView("SampleViewPage");
+		
+		String name = pathVar.get("userName");
+		String msg = pathVar.get("msg");
+		
+		Map<String, String> obj = new HashMap<String, String>();
+		obj.put("username", "Via Map: " + name);
+		obj.put("msg", msg);
+		
+		mav.addObject("obj", obj);
+		
+		return mav;
+	}
+	
 	// localhost:8080/SpringMvcPathVariable/Sample/Hello/Shahadat/How are you
 	// localhost:8080/SpringMvcPathVariable/Sample/Hi/Shahadat/How are you
+	// localhost:8080/SpringMvcPathVariable/Sample/Map/Dhaka/Where am I
 }
