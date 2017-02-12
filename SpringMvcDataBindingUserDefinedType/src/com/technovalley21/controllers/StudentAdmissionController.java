@@ -2,6 +2,7 @@ package com.technovalley21.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +25,14 @@ public class StudentAdmissionController {
 	}
 	
 	@RequestMapping(value="submitAdmissionForm.html", method=RequestMethod.POST)
-	public ModelAndView submitAdmissionForm(@ModelAttribute("student") Student student){
+	public ModelAndView submitAdmissionForm(@ModelAttribute("student") Student student, BindingResult result){
+		
+		/* catch form related error with BindingResult */
+		if( result.hasErrors() ){
+			ModelAndView mav1 = new ModelAndView("AdmissionFormPage");
+			
+			return mav1;
+		}
 		
 		ModelAndView mav = new ModelAndView("AdmissionSuccess");
 		mav.addObject("msgHeader", "Welcome to Spring MVC Model Attribute Tutorials");
